@@ -77,22 +77,32 @@ public class Main {
                 System.out.println("---------------------------------------------------------------------");
             }
 
+            ArrayList<Processos> arrayProcessos = new ArrayList<>();
+            for(String s : processos){
+                String[] S = s.split(";");
+                int idProcesso = Integer.parseInt(S[0]);
+                int tempoChegada = Integer.parseInt(S[1]);
+                int tempoCPU = Integer.parseInt(S[2]);
+                Processos p = new Processos(idProcesso, tempoChegada, tempoCPU);
+                arrayProcessos.add(p);
+            }
+
             algoritmo = algoritmo.toUpperCase().trim();
             String algoritmo2[] = algoritmo.split(";");
             switch (algoritmo2[0]){
                 case "RR":
                     Algoritmos RR = new RR();
-                    RR.executar(numProcessos, processos);
+                    RR.executar(numProcessos, arrayProcessos);
                     break;
 
                 case "FCFS":
                     Algoritmos FCFS = new FCFS();
-                    FCFS.executar(numProcessos, processos);
+                    FCFS.executar(numProcessos, arrayProcessos);
                     break;
 
                 case "SJF":
                     Algoritmos SJF = new SJF();
-                    SJF.executar(numProcessos, processos);
+                    SJF.executar(numProcessos, arrayProcessos);
                     break;
             }
             fileReader.close();
