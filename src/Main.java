@@ -45,7 +45,7 @@ public class Main {
             FileReader fileReader = new FileReader(entrada);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String linha = "";
-            String numProcessos = "";
+            String numProcessosString = "";
             String algoritmo = "";
 
             ArrayList<String> processos = new ArrayList<>();
@@ -53,7 +53,7 @@ public class Main {
             while ((linha = bufferedReader.readLine()) != null) {
                 if(linha != null && !linha.isEmpty()) {
                     if(i == 0){
-                        numProcessos = linha;
+                        numProcessosString = linha;
                         i++;
                     }else if(i == 1) {
                         algoritmo = linha;
@@ -65,6 +65,16 @@ public class Main {
                     System.out.println("Arquivo Vazio!");
                     break;
                 }
+            }
+
+            int numProcessos = Integer.parseInt(numProcessosString);
+            if(numProcessos != processos.size()){
+                System.out.println("Numero de Processos informado divirgente da quantidade de processos!");
+                System.out.println("Quantidades de processos informados:" + numProcessos);
+                System.out.println("Quantidade real de processos:" + processos.size());
+                numProcessos = processos.size();
+                System.out.println("Numero de processos atualizado!");
+                System.out.println("---------------------------------------------------------------------");
             }
 
             algoritmo = algoritmo.toUpperCase().trim();
