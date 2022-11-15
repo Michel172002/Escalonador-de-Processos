@@ -89,20 +89,21 @@ public class Main {
 
             algoritmo = algoritmo.toUpperCase().trim();
             String algoritmo2[] = algoritmo.split(";");
+            int quantum = Integer.parseInt(algoritmo2[1]);
             switch (algoritmo2[0]){
                 case "RR":
                     Algoritmos RR = new RR();
-                    RR.executar(numProcessos, arrayProcessos);
+                    RR.executar(numProcessos, arrayProcessos, quantum);
                     break;
 
                 case "FCFS":
                     Algoritmos FCFS = new FCFS();
-                    FCFS.executar(numProcessos, arrayProcessos);
+                    FCFS.executar(numProcessos, arrayProcessos, 0);
                     break;
 
                 case "SJF":
                     Algoritmos SJF = new SJF();
-                    SJF.executar(numProcessos, arrayProcessos);
+                    SJF.executar(numProcessos, arrayProcessos, 0);
                     break;
             }
             fileReader.close();
