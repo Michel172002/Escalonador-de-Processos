@@ -61,9 +61,6 @@ public class Main {
                     }else {
                         processos.add(linha);
                     }
-                }else {
-                    System.out.println("Arquivo Vazio!");
-                    break;
                 }
             }
 

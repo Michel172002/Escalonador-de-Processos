@@ -2,6 +2,9 @@ public class Processos {
     private int idProcesso;
     private int tempoChegada;
     private int tempoCPU;
+    private int tempoDeConclusao = 0;
+    private int tempoSistema = 0;
+    private int tempoEspera = 0;
 
     public Processos(int idProcesso, int tempoChegada, int tempoCPU){
         this.idProcesso = idProcesso;
@@ -31,5 +34,29 @@ public class Processos {
 
     public void setTempoCPU(int tempoCPU) {
         this.tempoCPU = tempoCPU;
+    }
+
+    public int getTempoDeConclusao() {
+        return tempoDeConclusao;
+    }
+
+    public void setTempoDeConclusao(int tempoDeConclusao) {
+        this.tempoDeConclusao = tempoDeConclusao;
+    }
+
+    public int getTempoSistema() {
+        return tempoSistema;
+    }
+
+    public void setTempoSistema(int tempoSistema) {
+        this.tempoSistema = tempoSistema;
+    }
+
+    public int getTempoEspera() {
+        return tempoEspera;
+    }
+
+    public void setTempoEspera(int tempoEspera) {
+        this.tempoEspera = tempoEspera;
     }
 }
