@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class RR implements Algoritmos{
     @Override
@@ -6,8 +6,8 @@ public class RR implements Algoritmos{
 
         ArrayList<Processos> filaDePronto = new ArrayList<>();
         ArrayList<Processos> filaConcluidos = new ArrayList<>();
+        ArrayList<Processos> ordemGrafico = new ArrayList<>();
         int tempoExecucao = 0;
-        ArrayList<Integer> duracaoAux = new ArrayList<Integer>();
 
         for(int i=0; i <= 15; i++){
             for (int j = 0; j < processos.size(); j++) {
@@ -16,7 +16,7 @@ public class RR implements Algoritmos{
                 }
             }
             if(!filaDePronto.isEmpty()) {
-                System.out.println("Tempo " + i + ": Processo id: " + filaDePronto.get(0).getIdProcesso());
+                ordemGrafico.add(filaDePronto.get(0));
 
                 if(tempoExecucao == quantum || tempoExecucao == filaDePronto.get(0).getTempoCPU()) {
                     filaDePronto.get(0).setTempoCPU(filaDePronto.get(0).getTempoCPU() - quantum);
@@ -35,24 +35,19 @@ public class RR implements Algoritmos{
                 for (int j = 0; j < filaDePronto.size(); j++) {
                     if (j == 0) {
                         filaDePronto.get(j).setTempoSistema(filaDePronto.get(j).getTempoSistema() + 1);
-                        System.out.println("Processo " + filaDePronto.get(j).getIdProcesso() + "Em execução :"
-                        + filaDePronto.get(j).getTempoSistema());
                     }else {
                         filaDePronto.get(j).setTempoEspera(filaDePronto.get(j).getTempoEspera() + 1);
-                        System.out.println("Processo " + filaDePronto.get(j).getIdProcesso() + "Em espera :"
-                                + filaDePronto.get(j).getTempoEspera());
                     }
                 }
                 tempoExecucao++;
-            }else {
-                System.out.println("arrayRR empty!");
             }
         }
         for (Processos p : filaConcluidos) {
             p.setTempoDeConclusao(p.getTempoEspera() + p.getTempoSistema());
             p.setTempoCPU(p.getTempoSistema());
         }
-//        criarTabela(filaConcluidos);
+        criarTabela(filaConcluidos);
+        criarGrafico(filaConcluidos, ordemGrafico);
     }
 
     public void criarTabela(ArrayList<Processos> processos){
@@ -70,5 +65,30 @@ public class RR implements Algoritmos{
         System.out.println("-------+----------+---------+-----------+---------+--------+");
     }
 
+    public void criarGrafico(ArrayList<Processos> filaConcluidos, ArrayList<Processos> ordem){
+        int maiorTempo = 0;
+        for (Processos p : filaConcluidos) {
+            if(maiorTempo < p.getTempoDeConclusao()){
+                maiorTempo = p.getTempoDeConclusao();
+            }
+        }
+        for (int i=1; i <= maiorTempo; i++){
+            String num = String.format("%03d", i);
 
+            if((i-1) == 0) {
+                System.out.print("_____|");
+                for (int j = 0; j < filaConcluidos.size(); j++) {
+                    System.out.print("-T" + filaConcluidos.get(j).getIdProcesso() + "-|");
+                }
+                System.out.println("");
+            }
+            System.out.print(" " + num + " |");
+            int numEspaco;
+            numEspaco = 2 + (ordem.get(i).getIdProcesso() - 1) * 5;
+            for (int x = 0; x < numEspaco; x++) {
+                System.out.print(" ");
+            }
+            System.out.println("|");
+        }
+    }
 }
