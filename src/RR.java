@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class RR implements Algoritmos{
@@ -50,45 +53,77 @@ public class RR implements Algoritmos{
         criarGrafico(filaConcluidos, ordemGrafico);
     }
 
-    public void criarTabela(ArrayList<Processos> processos){
-        System.out.println("       |-----------------------TEMPO DE--------------------|");
-        System.out.println("Tarefa | Ingresso | Duração | Conclusão | Sistema | Espera |");
-        System.out.println("-------+----------+---------+-----------+---------+--------+");
-        for (int j=0; j < processos.size(); j++){
-            System.out.print("  T" + processos.get(j).getIdProcesso() + "   | ");
-            System.out.print("    " + processos.get(j).getTempoChegada() + "    | ");
-            System.out.print("   " + processos.get(j).getTempoCPU() + "    | ");
-            System.out.print("    " + processos.get(j).getTempoDeConclusao() + "     | ");
-            System.out.print("   " + processos.get(j).getTempoSistema() + "    | ");
-            System.out.println("   " + processos.get(j).getTempoEspera() + "  | ");
+    public void criarTabela(ArrayList<Processos> processos) {
+        try {
+//            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida");
+            FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida");
+
+            PrintWriter pw = new PrintWriter(fw);
+
+            pw.println("       |-----------------------TEMPO DE--------------------|");
+            pw.println("Tarefa | Ingresso | Duração | Conclusão | Sistema | Espera |");
+            pw.println("------- ---------- --------- ----------- --------- -------- ");
+            for (int j = 0; j < processos.size(); j++) {
+                pw.print("  T" + processos.get(j).getIdProcesso() + "   | ");
+                pw.print("    " + processos.get(j).getTempoChegada() + "    | ");
+                pw.print("   " + processos.get(j).getTempoCPU() + "    | ");
+                pw.print("    " + processos.get(j).getTempoDeConclusao() + "     | ");
+                pw.print("   " + processos.get(j).getTempoSistema() + "    | ");
+                pw.println("   " + processos.get(j).getTempoEspera() + "  | ");
+            }
+            pw.println("------- ---------- --------- ----------- --------- -------- ");
+            double tempoEspera = 0;
+            double tempoSistema = 0;
+            for (Processos p : processos){
+                tempoSistema  += p.getTempoDeConclusao();
+                tempoEspera  += p.getTempoEspera();
+            }
+            tempoEspera = tempoEspera / processos.size();
+            tempoSistema = tempoSistema / processos.size();
+            pw.println("");
+            pw.println("TEMPO MEDIO DE ESPERA: " + tempoEspera);
+            pw.println("TEMPO MEDIO DE SISTEMA: " + tempoSistema);
+            pw.println("");
+            pw.flush();
+            pw.close();
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        System.out.println("-------+----------+---------+-----------+---------+--------+");
     }
 
-    public void criarGrafico(ArrayList<Processos> filaConcluidos, ArrayList<Processos> ordem){
-        int maiorTempo = 0;
-        for (Processos p : filaConcluidos) {
-            if(maiorTempo < p.getTempoDeConclusao()){
-                maiorTempo = p.getTempoDeConclusao();
-            }
-        }
-        for (int i=1; i <= maiorTempo; i++){
-            String num = String.format("%03d", i);
-
-            if((i-1) == 0) {
-                System.out.print("_____|");
-                for (int j = 0; j < filaConcluidos.size(); j++) {
-                    System.out.print("-T" + filaConcluidos.get(j).getIdProcesso() + "-|");
+    public void criarGrafico(ArrayList<Processos> filaConcluidos, ArrayList<Processos> ordem) {
+        try {
+//            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida", true);
+            FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida", true);
+            PrintWriter pw = new PrintWriter(fw);
+            int maiorTempo = 0;
+            for (Processos p : filaConcluidos) {
+                if (maiorTempo < p.getTempoDeConclusao()) {
+                    maiorTempo = p.getTempoDeConclusao();
                 }
-                System.out.println("");
             }
-            System.out.print(" " + num + " |");
-            int numEspaco;
-            numEspaco = 2 + (ordem.get(i).getIdProcesso() - 1) * 5;
-            for (int x = 0; x < numEspaco; x++) {
-                System.out.print(" ");
+            for (int i = 1; i <= maiorTempo; i++) {
+                String num = String.format("%03d", i);
+
+                if ((i - 1) == 0) {
+                    pw.print("_____|");
+                    for (int j = 0; j < filaConcluidos.size(); j++) {
+                        pw.print("-T" + filaConcluidos.get(j).getIdProcesso() + "-|");
+                    }
+                    pw.println("");
+                }
+                pw.print(" " + num + " |");
+                int numEspaco;
+                numEspaco = 2 + (ordem.get(i).getIdProcesso() - 1) * 5;
+                for (int x = 0; x < numEspaco; x++) {
+                    pw.print(" ");
+                }
+                pw.println("|");
             }
-            System.out.println("|");
+            pw.flush();
+            pw.close();
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 }
