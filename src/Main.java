@@ -86,7 +86,10 @@ public class Main {
 
             algoritmo = algoritmo.toUpperCase().trim();
             String algoritmo2[] = algoritmo.split(";");
-            int quantum = Integer.parseInt(algoritmo2[1]);
+            int quantum = 0;
+            if(algoritmo2.length > 1) {
+                quantum = Integer.parseInt(algoritmo2[1]);
+            }
             switch (algoritmo2[0]){
                 case "RR":
                     Algoritmos RR = new RR();

@@ -12,7 +12,12 @@ public class RR implements Algoritmos{
         ArrayList<Processos> ordemGrafico = new ArrayList<>();
         int tempoExecucao = 0;
 
-        for(int i=0; i <= 15; i++){
+        int duracao = 0;
+        for(Processos p : processos){
+            duracao += p.getTempoCPU();
+        }
+
+        for(int i=0; i <= duracao; i++){
             for (int j = 0; j < processos.size(); j++) {
                 if (i == processos.get(j).getTempoChegada()) {
                     filaDePronto.add(processos.get(j));
@@ -96,13 +101,12 @@ public class RR implements Algoritmos{
 //            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida", true);
             FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida", true);
             PrintWriter pw = new PrintWriter(fw);
-            int maiorTempo = 0;
-            for (Processos p : filaConcluidos) {
-                if (maiorTempo < p.getTempoDeConclusao()) {
-                    maiorTempo = p.getTempoDeConclusao();
-                }
+            int duracao = 0;
+            for(Processos p : filaConcluidos){
+                duracao += p.getTempoCPU();
             }
-            for (int i = 1; i <= maiorTempo; i++) {
+
+            for (int i = 1; i <= duracao; i++) {
                 String num = String.format("%03d", i);
 
                 if ((i - 1) == 0) {
