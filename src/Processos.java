@@ -1,4 +1,4 @@
-public class Processos {
+public class Processos implements Comparable<Processos> {
     private int idProcesso;
     private int tempoChegada;
     private int tempoCPU;
@@ -58,5 +58,15 @@ public class Processos {
 
     public void setTempoEspera(int tempoEspera) {
         this.tempoEspera = tempoEspera;
+    }
+
+    @Override
+    public int compareTo(Processos o) {
+        if(this.getTempoCPU() < o.getTempoCPU()){
+            return -1;
+        } else if (this.getTempoCPU() > o.getTempoCPU()) {
+            return 1;
+        }
+        return 0;
     }
 }

@@ -52,8 +52,8 @@ public class FCFS implements Algoritmos {
     }
     public void criarTabela(ArrayList<Processos> processos) {
         try {
-            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida");
-            //           FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida");
+//            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida");
+                       FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida");
 
             PrintWriter pw = new PrintWriter(fw);
 
@@ -90,8 +90,8 @@ public class FCFS implements Algoritmos {
 
     public void criarGrafico(ArrayList<Processos> filaConcluidos, ArrayList<Processos> ordem) {
         try {
-            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida", true);
-            //            FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida", true);
+//            FileWriter fw = new FileWriter("C:\\Users\\DESKTOP\\Desktop\\FACULDADE\\4ºSEMESTRE\\SO\\Escalonador-de-Processos-master\\src\\saida", true);
+                        FileWriter fw = new FileWriter("/home/michel/Documentos/Faculdade/4semestre/SO/Escalonador-de-Processos/src/saida", true);
             PrintWriter pw = new PrintWriter(fw);
             int duracao = 0;
             for(Processos p : filaConcluidos){
